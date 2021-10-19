@@ -1,25 +1,29 @@
-use super::item::{Entity, Equipable, State, Curse};
+use super::item::{Entity, Equipable, State, Curse, Spec};
 
 pub struct WeaponMelee {
     name: String,
     image: &'static str,
     description: &'static str,
+    weight: i16,
     damage: u32,
-    weight: i32,
-    durabillity: (u32, u32), //current, total
-    state: (State, [Curse; 4])
+    durabillity: (u8, u8), //current, total
+    state: (State, [Curse; 4], [Spec; 11])
 }
 
 impl WeaponMelee {
-    pub fn new(name: String, image: &'static str, description: &'static str, damage: u32, weight: i32, durabillity: (u32, u32), state: State) -> Self {
+    pub fn new(name: String, image: &'static str, description: &'static str, damage: u32, weight: i16, durabillity: (u8, u8), state: State) -> Self {
         return Self {
             name,
             image,
-            description,
             damage,
+            description,
             weight,
             durabillity,
-            state: (state, [Curse::None, Curse::None, Curse::None, Curse::None])
+            state: (
+                state,
+                [Curse::Nothing; 4],
+                [Spec::Nothing; 11]
+            )
         };
     }
 
@@ -27,7 +31,7 @@ impl WeaponMelee {
 }
 
 impl Entity for WeaponMelee {
-    fn get_weight(&self) -> i32 {
+    fn get_weight(&self) -> i16 {
         return self.weight;
     }
 
@@ -36,19 +40,21 @@ impl Entity for WeaponMelee {
     }
 
     fn take_damaged(&mut self, damage: u32) {
-        if self.durabillity.0 <= damage {
+        let point: u8 = 10;
+
+        if self.durabillity.0 <= point {
             self.durabillity = (0, 0);
             self.state.0 = State::Broken;
         } else {
-            self.durabillity.0 -= damage;
+            self.durabillity.0 -= point;
 
-            if self.durabillity.0 < (self.durabillity.1 as f32 * 0.75).round() as u32 {
+            if self.durabillity.0 < (self.durabillity.1 as f32 * 0.75).round() as u8 {
                 self.state.0 = State::Damaged;
             }
         }
     }
 
-    fn take_fixed(&mut self, point: u32) {
+    fn take_fixed(&mut self, point: u8) {
         self.durabillity.0 += point;
 
         if self.durabillity.0 >= self.durabillity.1 {

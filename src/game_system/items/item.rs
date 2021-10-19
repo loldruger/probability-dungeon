@@ -1,9 +1,9 @@
 pub trait Entity {
     fn get_name(&self) -> &str;
-    fn get_weight(&self) -> i32;
+    fn get_weight(&self) -> i16;
 
     fn take_damaged(&mut self, damage: u32);
-    fn take_fixed(&mut self, point: u32);
+    fn take_fixed(&mut self, point: u8);
 
     fn enchant<T: Entity>(&mut self, item: T) -> Result<T, Option<T>>;
 }
@@ -22,11 +22,16 @@ pub enum State {
     Broken
 }
 
-
+#[derive(Copy, Clone)]
 pub enum Curse {
-    None,
+    Nothing,
     ReverseProbability,
     Weak,
     Unstable
 }
 
+#[derive(Copy, Clone)]
+pub enum Spec {
+    Nothing,
+    Damage
+}

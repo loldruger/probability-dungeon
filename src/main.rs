@@ -1,11 +1,11 @@
 mod game_system;
 use game_system::{
-    items::{item, item::Curse, weaponMelee},
+    items::{item, item::Curse, item::Spec, weaponMelee},
     // inventory::Inventory
 };
 
 use std::mem;
-use std::collections::HashSet;
+
 fn main() {
     let a = weaponMelee::WeaponMelee::new(
         "지옥참마도".to_string(),
@@ -19,8 +19,11 @@ fn main() {
 
     println!("{}", mem::size_of_val(&a));
 
-    // let aa: (item::State, [Curse; 4]) = (item::State::Normal, [Curse::None, Curse::None, Curse::None, Curse::None]);
-    let aa: &str = "aaf";
+    let asdf: (item::State, [Curse; 4], [Spec; 7]) = (
+        item::State::Normal,
+        [Curse::Nothing; 4],
+        [Spec::Nothing; 7]
+    );
 
-    println!("{}", mem::size_of_val(&aa));
+    println!("{}", mem::size_of_val(&asdf));
 }
