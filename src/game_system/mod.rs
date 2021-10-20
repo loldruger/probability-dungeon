@@ -1,2 +1,4 @@
 pub mod inventory;
-pub mod item;
+pub mod entity;
+
+pub use entity::item;
