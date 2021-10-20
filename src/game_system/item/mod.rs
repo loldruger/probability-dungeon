@@ -1,3 +1,10 @@
+pub mod wearings;
+pub mod weapon_melee;
+// pub mod weapon_ranged;
+pub mod disposables;
+
+pub use weapon_melee::WeaponMelee;
+
 pub trait Entity {
     fn get_name(&self) -> &str;
     fn get_weight(&self) -> i16;

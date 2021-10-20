@@ -1,4 +1,4 @@
-use super::item::{Entity, Equipable, State, Curse, Spec};
+use super::{Entity, Equipable, State, Curse, Spec};
 
 pub struct WeaponMelee {
     name: String,

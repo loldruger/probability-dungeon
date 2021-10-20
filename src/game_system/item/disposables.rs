@@ -1,4 +1,4 @@
-use super::item::{Entity, Disposable};
+use super::{Entity, Disposable};
 
 struct Disposables {
     name: String,
